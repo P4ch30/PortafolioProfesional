@@ -2379,13 +2379,13 @@ color: #111;
 
 @media (min-width: 768px) {
   .spotify-iframe-wrapper {
-    padding-top: 56.25%; 
+    padding-top: 30%; 
   }
 }
 
 @media (min-width: 500px) {
   .spotify-iframe-wrapper {
-    padding-top: 30%; 
+    padding-top: 56.25%; 
   }
 }
 
