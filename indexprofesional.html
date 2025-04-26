@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-aG8j1KJf4QGcZ4wNwH5BpYyZ3Bq8iXcI4qU49/7v+UjAGnEeRbtIRzKHfE9nE0M7Gh1Yz0Y6u9zvGoSXI4xkWw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      />
+    
+    <link rel="stylesheet" href="Stylesprofesional.css" />
+    <title>Emilio Pacheco</title>
+
+  </head>
+
+  <body class="dark" id="top">
+
+    <!-- Header -->
+    <header class="header center">
+      <div id="navbar" class="navbar">
+        <div class="logo">
+          <a href="#Inicio" class="link">JEPC.</a> 
+        </div>
+        <nav class="navcenter">
+          <ul class="nav__list center nav-links">
+            <li class="nav__list-item">
+              <a class="link link--nav" href="https://p4ch30.github.io/PaginaWeb/">Sobre Mi</a>
+            </li>
+            <li class="nav__list-item">
+              <a class="link link--nav" href="#Highlights">Highlights</a>
+            </li>
+            <li class="nav__list-item">
+              <a class="link link--nav" href="#Proyectos">Proyectos</a>
+            </li>
+            <li class="nav__list-item">
+              <a class="link link--nav" href="#Contacto">Contacto</a>
+            </li>
+          </ul>
+        </nav>
+        <button type="button" aria-label="toggle theme" class="btn btn--icon nav__luna">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" id="hamburger-icon" class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main>
+      <!-- About -->
+      <div id="Inicio" class="about center">
+        <h3>José Emilio Pacheco Cuan</h3>
+        <h1><span class="highlight-text-about">Portafolio Profesional</span></h1>
+        <h2 class="about__role"> Físico Matemático.</h2>
+        <div class="about__contact center">
+          <a href="pfd/EmilioPachecoCuan_CV2025-2.pdf" target="_blank">
+            <span class="btn btn--outline"> Descarga mi CV</span>
+          </a> 
+        </div>
+      </div>
+
+      <!-- Highlights -->
+      <section id = "Highlights" class="highlight-container">
+        <h2 class="highlight-title"> Highlights.</h2>
+        <div class="fondo-highlights">
+          <div class="highlight-slide">
+            <h2 class="about__role">Dashboards</h2>
+            <p >
+              Diseño e implementación de dashboards interactivos para la visualización de datos mediante gráficos intuitivos y KPIs clave.
+            </p>
+            <div class="dashboard-tools">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" alt="Power BI" class="tool-icon">
+              <img src="svg/tableau-icon-svgrepo-com.svg" alt="Tableau" class="tool-icon">
+              <img src="svg/looker-icon-svgrepo-com.svg" alt="Looker Studio" class="tool-icon">
+            </div>
+            <div class="dashboard-preview">
+              <img src="imagenes/DASHBOARDDEMO.png" alt="Ejemplo de Dashboard" class="dashboard-img">
+            </div> 
+          </div>
+
+          <div class="highlight-slide machine-slide">
+              <h2 class="about__role">Inteligencia Artificial Aplicada</h2>
+              <p>
+                Modelos supervisados y no supervisados aplicados al análisis de datos reales. 
+                Experiencia en regresión, clasificación, clustering y evaluación de modelos.
+              </p>
+
+              <div class="tags">
+                <span class="tag">Python</span>
+                <span class="tag">scikit-learn</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">XGBoost</span>
+                <span class="tag">Regresión</span>
+              </div>
+      
+              <div class="regression-container">
+                <canvas id="regressionCanvas" ></canvas>
+              </div>
+          </div>
+
+          <script>
+          (function() {
+            const canvas = document.getElementById('regressionCanvas');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+          
+            // Mala hipótesis inicial: línea recta horizontal
+            let a = 0.5, b = 0.01, c = 0;
+            let iteration = 0;
+            const maxIterations = 300;
+            let animationStarted = false;
+          
+            const points = [];
+            for (let x = 0; x < 2 * Math.PI; x += 0.15) {
+              const noise = (Math.random() - 0.5) * 1.5;
+              points.push({ x, y: Math.sin(x) + noise });
+            }
+          
+            function xScale(x) {
+              return (x / (2 * Math.PI)) * width;
+            }
+          
+            function yScale(y) {
+              return height / 2 - y * 50;
+            }
+          
+            function drawPoints() {
+            ctx.fillStyle = "#ffffff";
+            points.forEach((p, i) => {
+            const delay = i * 2;
+            if (iteration > delay) {
+            ctx.beginPath();
+            ctx.globalAlpha = Math.min(1, (iteration - delay) / 10);
+            ctx.arc(xScale(p.x), yScale(p.y), 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+            }
+          });
+          }
+
+          
+function drawCurve() {
+  ctx.beginPath();
+  ctx.shadowColor = '#ffffff';
+  ctx.shadowBlur = 10;
+  ctx.strokeStyle = "#636363";
+  ctx.lineWidth = 2;
+  for (let x = 0; x <= 2 * Math.PI; x += 0.01) {
+    const y = a * Math.sin(b * x + c);
+    const px = xScale(x);
+    const py = yScale(y);
+    if (x === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.shadowBlur = 0; // resetea para que los puntos no brillen también
+}
+
+          
+            function updateParams() {
+              const lr = 0.15;
+              let da = 0.1, db = 0.1, dc = 0;
+              for (const p of points) {
+                const pred = a * Math.sin(b * p.x + c);
+                const error = pred - p.y;
+                da += 2 * error * Math.sin(b * p.x + c);
+                db += 2 * error * a * p.x * Math.cos(b * p.x + c);
+                dc += 2 * error * a * Math.cos(b * p.x + c);
+              }
+          
+              da /= points.length;
+              db /= points.length;
+              dc /= points.length;
+          
+              a -= lr * da;
+              b -= lr * db;
+              c -= lr * dc;
+            }
+          
+            function runAnimation() {
+              ctx.clearRect(0, 0, width, height);
+              drawPoints();
+              drawCurve();
+              if (iteration < maxIterations) {
+                updateParams();
+                iteration++;
+                requestAnimationFrame(runAnimation);
+              }
+            }
+          
+            const observer = new IntersectionObserver(entries => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting && !animationStarted) {
+                  animationStarted = true;
+                  runAnimation();
+                }
+              });
+            }, {
+              threshold: 0.6
+            });
+          
+            observer.observe(document.querySelector('.machine-slide'));
+          })();
+          </script>
+
+          <div class="highlight-slide">
+            <h2 class="about__role">Modelos Predictivos</h2>
+            <p >
+              Desarrollo de modelos para pronosticar comportamientos futuros usando técnicas estadísticas y machine learning supervisado.
+            </p>
+            <div class="dashboard-tools">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" class="tool-icon">
+              <img src="svg/statsmodels-logo-v2-no-text-light.svg" alt="Statsmodels" class="tool-icon">
+            </div>
+            <div class="dashboard-preview">
+              <img src="imagenes/p.png" alt="Ejemplo de modelo" class="dashboard-img">
+            </div>
+          </div>
+
+          <div class="highlight-slide model-slide">
+            <h2 class="about__role">Modelado Estadísticos y Probabilístico</h2>
+            <p>
+              Aplicación de modelos estadísticos para entender y predecir fenómenos inciertos. Experiencia con distribuciones de probabilidad, inferencia bayesiana, estimación de parámetros y simulaciones Monte Carlo.
+            </p>
+            <div class="normal-container">
+              <canvas id="normalCanvas" width="600" height="300"></canvas>
+            </div>
+          </div>
+  
+          <script>
+    (function() {
+    const canvas = document.getElementById('normalCanvas');
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+  
+    const mean = 0;
+    const stddev = 1;
+  
+    function gaussian(x, mu, sigma) {
+      return (1 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-((x - mu) ** 2) / (2 * sigma ** 2));
+    }
+  
+    const points = [];
+    const minX = -4, maxX = 4, step = 0.05;
+  
+    for (let x = minX; x <= maxX; x += step) {
+      points.push({ x, y: gaussian(x, mean, stddev) });
+    }
+  
+    function xScale(x) {
+      return ((x - minX) / (maxX - minX)) * width;
+    }
+  
+    function yScale(y) {
+      const maxY = gaussian(0, mean, stddev);
+      return height - (y / maxY) * (height * 0.8) - 10;
+    }
+  
+    let progress = 0;
+    const maxProgress = points.length;
+    let animationStarted = false;
+  
+    function drawCurve() {
+      ctx.clearRect(0, 0, width, height);
+  
+      // Axis
+      ctx.strokeStyle = "#888";
+      ctx.beginPath();
+      ctx.moveTo(0, height - 20);
+      ctx.lineTo(width, height - 20);
+      ctx.stroke();
+  
+      // Curve
+      ctx.beginPath();
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      for (let i = 0; i < progress; i++) {
+        const p = points[i];
+        const px = xScale(p.x);
+        const py = yScale(p.y);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+  
+      if (progress < maxProgress) {
+        progress += 1;
+        requestAnimationFrame(drawCurve);
+      }
+    }
+  
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !animationStarted) {
+          animationStarted = true;
+          drawCurve();
+        }
+      });
+    }, {
+      threshold: 0.6
+    });
+  
+    observer.observe(document.querySelector('.model-slide'));
+    })();
+          </script>      
+        </div>
+    
+        <div class="highlight-controls">
+          <div class="dots-container">
+          <div class="dot" data-index="0"><div class="progress-inner"></div></div>
+          <div class="dot" data-index="1"><div class="progress-inner"></div></div>
+          <div class="dot" data-index="2"><div class="progress-inner"></div></div>
+          <div class="dot" data-index="3"><div class="progress-inner"></div></div>
+        </div>
+        
+      </section>
+
+    <!-- ===========================Machine Learning=========================== -->
+     
+      <div class="parent_eda" id="Proyectos">
+        <div class="div1_ml">
+          <div id="containerML">
+            <canvas id="gradient-canvasML" ></canvas>
+            <div id="overlayML">
+              <h1>Descenso por Gradiente</h1>
+              <p>
+                Algoritmo de optimización utilizado para ajustar los parámetros de un modelo, 
+                con el fin de minimizar una función de error o función de costo.
+                Haz click en cualquier punto del canvas para soltar la bolita y ver cómo desciende por la superficie hacia un mínimo local.
+                Cada vez que recargues la página, la topografía cambia automáticamente.
+              </p>
+              <button onclick="hideOverlayML()">¡Entendido!</button>
+            </div>
+          </div>  
+        </div>        
+              
+        <div class="div2_eda">
+          <h2>Machine Learning</h2>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Scikit-learn</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">R</span>
+            <span class="tag">RandomForest</span>
+            <span class="tag">XGBoost</span>
+            <span class="tag">K-means</span>
+          </div>
+
+          <p>
+            El aprendizaje automático es una de las área que más me apasiona: diseñar modelos capaces de aprender, adaptarse y predecir en entornos inciertos es, para mí, una extensión natural de mis estudios en física y estadística. 
+            Mi primer acercamiento fue modelando el sistema de Ising, y desde entonces he explorado desde regresiones hasta redes neuronales profundas, siempre con el objetivo de aplicar teoría sólida para resolver problemas reales.
+          </p>
+          
+        </div>
+      
+        <div class="div3_eda">
+          <h3>Impacto Laboral</h3>
+          <hr />
+          <ul>
+            <li>Desarrollo de modelos predictivos para optimizar decisiones de compra y producción en una industria de óxido de calcio.</li>
+            <li>Clasificadores para segmentación de clientes y estrategias de marketing.</li>
+            <li>Simulación estocástica de portafolios financieros con métricas de riesgo como VaR y Sharpe ratio.</li>
+            <li>Modelos de recomendación aplicados a datasets culturales.</li>
+          </ul>
+        </div>
+      
+        <div class="div4_eda">
+          <h3>Herramientas Técnicas Utilizadas</h3>
+          <hr />
+          <ul>
+            <li><strong>MySQL:</strong> Gestión de bases de datos para entrenamiento y validación.</li>
+            <li><strong>Scikit-learn:</strong> Regresiones, clasificación y pipelines de modelos.</li>
+            <li><strong>TensorFlow:</strong> Modelado de redes neuronales y deep learning.</li>
+            <li><strong>API´s:</strong> Extracción y minería de datos en tiempo real.</li>
+            <li><strong>Keras:</strong> Construcción y entrenamiento de redes neuronales.</li>
+          </ul>
+        </div>
+      </div>
+      
+      <section class="spotify-carousel-section">
+        <div class="hero">
+          <h1><span class="highlight-text-hola-ml">Prevención de Fraudes</span></h1>
+          <p>
+            Desarrollé un sistema inteligente para detectar fraudes financieros en transacciones bancarias utilizando técnicas avanzadas de machine learning supervisado. 
+            El proyecto aborda un problema real de clasificación extremadamente desbalanceado, donde las transacciones fraudulentas representan menos del 0.2% del total.
+          </p>
+        </div>
+
+        <div class="midsection fade-element">
+          <div class="divuno">
+            <h3>
+              Identificar transacciones potencialmente fraudulentas con alta precisión y recall.
+            </h3>
+          </div>
+          <div class="divdos fade-element">
+            <h3>
+              Minimizar falsos negativos para reducir el riesgo de pérdidas financieras.
+            </h3>
+          </div>
+          <div class="divtres fade-element">
+            <h3>
+              Aplicar interpretación para explicar las predicciones del modelo.
+            </h3>
+          </div>
+        </div>
+      </section>
+
+      <section class="MachineLearning">
+
+          <div class="group" id="group1" style="display: flex;">
+            <iframe class="image-box1" src="paginas_secundarias/matrizconfucion.html"></iframe>
+            <div class="image-box1"><img src="imagenes/carbon.png"></div>
+          </div>
+      
+          <div class="group" id="group2" style="display: none;">
+            <div class="image-box1"><img src="imagenes/curvaROC.png"></div>
+            <iframe class="image-box1" src="paginas_secundarias/curvaROC.html"></iframe>
+          </div>
+      
+          <div class="group" id="group3" style="display: none;">
+            <iframe class="image-box1" src="paginas_secundarias/PrecisionRecall.html"></iframe>
+            <div class="image-box1"><img src="imagenes/precision.png"></div>
+          </div>
+
+          <div class="group" id="group4" style="display: none;">
+            <iframe class="image-box2" src="paginas_secundarias/MetricasVsUmbral.html"></iframe>
+          </div>
+
+          <div class="group" id="group5" style="display: none;">
+            <iframe class="image-box2" src="paginas_secundarias/shap_dependence_V4.html"></iframe>
+          </div>
+  
+          <div class="carousel-controlsML">
+            <button class="control-btnML active" onclick="showGroup(1, this)">Matriz de Confusión</button>
+            <button class="control-btnML" onclick="showGroup(2, this)">Curva ROC</button>
+            <button class="control-btnML" onclick="showGroup(3, this)">Curva de Precisión</button>
+            <button class="control-btnML" onclick="showGroup(4, this)">Métricas por Umbral</button>
+            <button class="control-btnML" onclick="showGroup(5, this)">Dependencia SHAP</button>
+          </div>
+
+        <div class="textML" id="info-text">
+          <p>La matriz de confusión muestra que el modelo detectó correctamente 115 fraudes y falló en 33. Clasificó 85k transacciones legítimas correctamente, con solo 30 falsos positivos.
+             Esto indica un modelo preciso y confiable para detectar fraudes sin generar demasiadas alertas falsas.</p>
+        </div>
+      
+      </section>
+
+      <section class = "MachineLearning2">
+        <h3>Resumen del modelo</h3>
+        <div class="parent_ML">
+          <div class="div6">
+            <div class="tile tile-color">
+              <p class="desc">Se obtuvo un 85.85% de precisión en la detección de transacciones fraudulentas.</p>
+            </div>
+          </div>
+
+          <div class="div7">
+            <div class="tilegrande">
+              <p class="label">El modelo obtuvo una calificación de </p>
+              <h1><span class="highlight-text-hola-ml">99.95% de precisión </span></h1>
+              <p class="label"> global de acuerdo con el reporte de clasificación de sklearn metrics.</p>
+            </div>          
+          </div>
+
+          <div class="div8">
+            <div class="tile">
+              <p class="desc">Se trabajó con una base de datos de 85,265 transacciones, las cuales se analizaron y limpiaron para el correcto uso del modelo.</p>
+            </div>          
+          </div>
+
+          <div class="div9">
+            <div class="tilegrande">
+              <p class="label">Mi modelo alcanzó un</p>
+              <h1><span class="highlight-text-hola-ml">97% de desempeño</span></h1>
+              <p class="label">en distinguir entre transacciones fraudulentas y no fraudulentas, según el ROC AUC.</p>
+            </div>          
+          </div>
+        </div>
+        
+
+        <div class="carousel-controls">
+          <a href="https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-600k-tracks" target="_blank" class="control-btn link-btn">Reporte Técnico</a>
+          <a href="https://colab.research.google.com/drive/1KjEN1Ct6oDELLXBHjbjolhGC7ks261jY?usp=sharing" target="_blank" class="control-btn link-btn">Código Completo</a>
+          <a href="https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud" target="_blank" class="control-btn link-btn">Ver Base de Datos</a>
+        </div>
+      </section>
+      
+
+      <section class="hero-stochastic fade-element" >
+        <div class="text-col">
+          <h1><span class="highlight-text-hola-ml">Machine Learning.</span></h1>
+          <p>
+            <strong>Hago que los datos trabajen para ti.</strong>
+            Con mi experiencia en Machine Learning, me encargo de transformar datos sin procesar en modelos predictivos que no solo proporcionan información, sino que también ofrecen soluciones tangibles para los desafíos más complejos.
+          </p>
+          
+          <a href="https://drive.google.com/drive/folders/1U3VGk8OUmmG2wmLy1woT51Te5Sk5g88G?usp=share_link" class="cta-link-ml">Explora mi portafolio completo ›</a>
+        </div>
+        <div class="metrics-col">
+         <div class="metric">
+            <p class="label">+300K</p>
+            <h2>Datos procesados</h2>
+            <p class="desc">en proyectos de Inteligencia Artificial</p>
+          </div>
+          <div class="metric">
+            <p class="label">HASTA</p>
+            <h2>99% de precisión</h2>
+            <p class="desc">en modelos predictivos basados en Machine Learning</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================== Simulaciones Estocásticas =========================== -->
+
+      <div class="parent" id="Esto">
+        <div class="div1">
+          <div id="containerBrownian">
+            <canvas id="brownianCanvas"></canvas>
+          
+            <div id="overlayBrownian">
+              <h1>Movimiento Browniano</h1>
+              <p>
+                Esta visualización simula trayectorias de partículas con movimiento aleatorio.<br>
+                Observa cómo se dispersan desde el centro.<br>
+                ¡Perfecto para visualizar procesos estocásticos!
+              </p>
+              <button onclick="hideOverlayBrownian()">¡Entendido!</button>
+            </div>
+          </div>
+
+          <script>
+           // Función para ocultar el overlay y arrancar la animación
+function hideOverlayBrownian() {
+  document.getElementById("overlayBrownian").style.display = "none";
+  startBrownianAnimation(); // Iniciar animación cuando se oculta el overlay
+}
+
+function startBrownianAnimation() {
+  const canvas = document.getElementById("brownianCanvas");
+  const ctx = canvas.getContext("2d");
+
+  // Ajusta el tamaño del canvas a su contenedor
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+
+  resizeCanvas(); // Inicial
+  window.addEventListener("resize", () => {
+    resizeCanvas();
+    initializeParticles(); // Reiniciar partículas si se redimensiona
+  });
+
+  let animationId;
+  let particles = [];
+  const numParticles = 30;
+  const steps = 1500;
+  let step = 0;
+
+  // Flag para verificar si la animación ya ha comenzado
+  let hasStarted = false;
+
+  // Función para convertir hex a hsl
+  function hexToHsl(hex) {
+    let r = parseInt(hex.slice(1, 3), 16) / 255;
+    let g = parseInt(hex.slice(3, 5), 16) / 255;
+    let b = parseInt(hex.slice(5, 7), 16) / 255;
+
+    let max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+
+    if (max === min) {
+      h = s = 0; // achromatic
+    } else {
+      let d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      if (max === r) {
+        h = (g - b) / d + (g < b ? 6 : 0);
+      } else if (max === g) {
+        h = (b - r) / d + 2;
+      } else {
+        h = (r - g) / d + 4;
+      }
+      h /= 6;
+    }
+    return [h * 360, s * 100, l * 100]; // Retorna HSL
+  }
+
+  // Función para interpolar entre dos colores
+  function interpolateColor(startHex, endHex, factor) {
+    const startHsl = hexToHsl(startHex);
+    const endHsl = hexToHsl(endHex);
+
+    const h = startHsl[0] + (endHsl[0] - startHsl[0]) * factor;
+    const s = startHsl[1] + (endHsl[1] - startHsl[1]) * factor;
+    const l = startHsl[2] + (endHsl[2] - startHsl[2]) * factor;
+
+    return `hsla(${h}, ${s}%, ${l}%, 0.4)`; // Devuelve el color interpolado en formato hsla
+  }
+
+  function initializeParticles() {
+    const width = canvas.width;
+    const height = canvas.height;
+    particles = [];
+    for (let i = 0; i < numParticles; i++) {
+      const factor = Math.random();  // Aleatorio entre 0 y 1
+      const color = interpolateColor("#661b00", "#ffc7b2", factor);  // Interpolamos entre los colores
+      particles.push({
+        x: width / 2,
+        y: height / 2,
+        path: [],
+        color: color
+      });
+    }
+    step = 0;
+    ctx.clearRect(0, 0, width, height);
+  }
+
+  function draw() {
+    if (step >= steps) return;
+
+    const width = canvas.width;
+    const height = canvas.height;
+
+    particles.forEach(p => {
+      const dx = (Math.random() - 0.5) * 12;
+      const dy = (Math.random() - 0.5) * 12;
+      p.x += dx;
+      p.y += dy;
+      p.path.push({ x: p.x, y: p.y });
+
+      if (p.path.length > 1) {
+        const prev = p.path[p.path.length - 2];
+        ctx.strokeStyle = p.color;
+        ctx.beginPath();
+        ctx.moveTo(prev.x, prev.y);
+        ctx.lineTo(p.x, p.y);
+        ctx.stroke();
+      }
+    });
+
+    step++;
+    animationId = requestAnimationFrame(draw);
+  }
+
+  // Iniciar animación si canvas entra en vista, pero solo una vez
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hasStarted) {
+        initializeParticles();
+        draw();
+        hasStarted = true;  // Marcar que la animación ha comenzado
+        observer.disconnect();  // Dejar de observar después de la primera vez
+      } else if (!entry.isIntersecting) {
+        cancelAnimationFrame(animationId);
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  observer.observe(canvas);
+}
+
+
+          </script>
+          
+        </div>
+
+
+        <div class="div2">
+          <h2>Simulaciones Estocásticas</h2>
+          <div class="tags">
+            <span class="tag">Metropolis-Hasting</span>
+            <span class="tag">Random Walk</span>
+            <span class="tag">Movimiento Browniano</span>
+            <span class="tag">Simulación Monte Carlo</span>
+          </div>
+          <p>
+            Mi formación en física me ha permitido desarrollar una intuición sólida para trabajar con incertidumbre y variabilidad, especialmente al estudiar fenómenos intrínsecamente estocásticos como los que se encuentran en la mecánica cuántica y la termodinámica. Esta base me ha habilitado para aplicar modelos estocásticos a problemas tan diversos como la dinámica de un gas en una estrella o la predicción del comportamiento de acciones en el mercado bursátil.
+          </p>
+        </div>
+
+        <div class="div3">
+          <h4>Impacto laboral</h4>
+          <hr>
+          <p>
+            Desarrollé un modelo estocástico para predecir el precio del combustóleo en una empresa de óxido de calcio, optimizando los momentos de compra y <strong> mejorando el margen bruto de utilidades. </strong>
+            La herramienta resultante, flexible y adaptable a distintos insumos energéticos, incluye parámetros ajustables (volatilidad histórica, horizonte temporal, capital expuesto) y simulaciones con intervalos de confianza, lo que facilitó la comunicación de riesgos y fortaleció la toma de decisiones basada en datos.
+          </p>
+        </div>
+
+        <div class="div4">
+          <h4>Herramientas Técnicas Utilizadas</h4>
+          <hr>
+          <ul>
+            <li><strong>Movimiento Browniano Geométrico:</strong> Modelo probabilístico continuo para simular precios de insumos bajo incertidumbre estocástica.</li>
+            <li><strong>Simulación Monte Carlo:</strong> Generación de múltiples trayectorias posibles para estimar la distribución de precios futuros y evaluar riesgo.</li>
+            <li><strong>NumPy & Matplotlib:</strong> Implementación numérica eficiente y visualización interactiva de escenarios de precios, dispersión y límites de confianza.</li>
+            <li><strong>Interfaz paramétrica:</strong> Ajuste dinámico de variables clave como volatilidad, periodo de simulación y frecuencia temporal para análisis a medida.</li>
+          </ul>
+        </div>  
+      </div>
+
+    <!-- Sección del video -->
+      <section id="sun-video-section">
+        <div class="video-container">
+          <video id="sun-video" autoplay muted playsinline preload="none">
+            <source src="sun.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </section>
+      
+      <section id="proyecto-manchas" class="apple-carousel-section">
+        <div class="hero fade-element">
+          <h1>Manchas Solares</h1>
+          <p>
+            Las manchas solares son un fenómeno físico estocástico que se produce por variaciones en la actividad magnética del Sol. Estas variaciones pueden modelarse y predecirse en cierta medida mediante métodos estocásticos.
+          </p>
+        </div>
+      
+        <div class="carousel-wrapper">
+          <div class="carousel" id="carousel">
+            <img src="imagenes/simulacion.png" alt="Simulación Estocástica" />
+            <img src="imagenes/real.png" alt="Datos Reales" />
+            <img src="imagenes/simvsre.png" alt="Comparativa" />
+          </div>
+        </div>
+
+        <div class="carousel-controls">
+          <a href="#" class="control-btn link-btn active" onclick="goToSlide(0, this)">Simulación</a>
+          <a href="#" class="control-btn link-btn" onclick="goToSlide(1, this)">Datos Reales</a>
+          <a href="#" class="control-btn link-btn" onclick="goToSlide(2, this)">Comparativa</a>
+          <a href="https://colab.research.google.com/drive/1ZMyQICt9h0w3iEJ_usw9mHTGWswUS7uu?usp=sharing" target="_blank" class="control-btn link-btn">Código</a>
+          <a href="https://www.sidc.be/SILSO/datafiles" target="_blank" class="control-btn link-btn">Ver Base de Datos</a>
+        </div>
+        
+        
+      </section>
+  
+      <section class="hero-stochastic fade-element">
+        <div class="text-col">
+          <h1><span class="highlight-text-hola">Modelado Estocástico.</span></h1>
+          <p>
+            <strong>¿Te gustaría concer un poco más sobre mi trabajo en el área?</strong>
+            Desde simulaciones de trayectorias bursátiles hasta procesos de física cuántica aleatorios,
+            aplico modelos probabilísticos para entender, anticipar y optimizar bajo incertidumbre.
+          </p>
+          <a href="https://drive.google.com/drive/folders/13b0lSQ45UvOKNMRJ9SJ9K4ndapnX8xkH?usp=share_link" class="cta-link">Explora mi portafolio en Python ›</a>
+        </div>
+        <div class="metrics-col">
+         <div class="metric">
+            <p class="label">Hasta</p>
+            <h2>99% de precisión</h2>
+            <p class="desc">en predicciones estocásticas</p>
+          </div>
+          <div class="metric">
+            <p class="label">+300</p>
+            <h2>Horas de análisis</h2>
+            <p class="desc">para estimar riesgo con intervalos de confianza</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- ============================== EDA ==============================-->
+
+
+      <div class="parent_eda">
+        <div class="div1_eda">
+          <div id="containerBrownian">
+            <canvas id="edaCanvas" width="750px" height="900px"></canvas>
+
+            <div class="overlay-eda">
+              <div class="overlay-eda-content">
+                <h1>Exploración de Datos</h1>
+                <p>Visualización animada de estructuras estadísticas y patrones.</p>
+                <button id="startEda">¡Entendido!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="div2_eda">
+          <h2>Análisis Exploratorio de Datos </h2>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">R</span>
+            <span class="tag">Plotly</span>
+            <span class="tag">LaTeX</span>
+            <span class="tag">PowerBI</span>
+          </div>
+          <p>Mi experiencia en análisis de datos me ha enseñado a extraer valor de la información, detectando patrones y optimizando procesos. He aplicado esta habilidad en <strong>industriales y científicos</strong>, transformando datos complejos en decisiones claras y accionables.</p>
+        </div>
+    
+        <div class="div3_eda">
+          <h3>Impacto laboral </h3>
+          <hr/>
+          <ul>
+            Realicé un estudio exploratorio de más de 18 meses de registros sobre los tiempos de carga y despacho de camiones en planta, enfocado en detectar cuellos de botella y variaciones operativas. Presenté los hallazgos en un reporte formal en LaTeX y un dashboard interactivo. Identifiqué diferencias sistemáticas de hasta <strong>40 minutos entre turnos</strong>, días críticos por sobrecarga operativa y demoras asociadas a contratos grandes. El análisis permitió establecer un marco de referencia para tiempos óptimos según el tipo de carga.
+          </ul>
+        </div>
+    
+        <div class="div4_eda">
+          <h3>Herramientas Técnicas Utilizadas</h3>
+          <hr />
+          <ul>
+            <li><strong>Pandas y NumPy:</strong> Limpieza y transformación de más de 25 mil registros.</li>
+            <li><strong>Seaborn y Plotly:</strong> Visualización de datos y exploración de patrones.</li>
+            <li><strong>Dash:</strong> Dashboard interactivo con filtros por producto, cliente y horario.</li>
+            <li><strong>Statsmodels:</strong> ANOVA para identificar diferencias significativas entre grupos.</li>
+            <li><strong>LaTeX:</strong> Informe formal con análisis, visualizaciones y recomendaciones.</li>
+            <li><strong>Jupyter Notebooks:</strong> Documentación técnica y exploración colaborativa.</li>
+
+          </ul>
+        </div>
+      </div>
+
+
+      <section class="spotify-section">
+        <div class="spotify-content">
+          <h1><span class="highlight-text-hola-spotify">Análisis Base de Datos Spotify</span></h1>
+          <p>Esta es la playlist que me acompañó mientras analizaba los datos de Spotify.</p>
+          <div class="spotify-iframe-wrapper">
+            <iframe 
+              src="https://open.spotify.com/embed/playlist/1G11fzlqAXx4qnYqK3Om4F?utm_source=generator&theme=0" 
+              frameborder="0"
+              allowfullscreen="" 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              >
+            </iframe>
+          </div>
+        </div>
+      </section>
+      
+      <section id="proyecto-spotify" class="spotify-carousel-section">
+        <div class="hero fade-element">
+          <h2>Spotify Dataset 1921-2020</h2>
+          <p>
+            Este proyecto consiste en un análisis exploratorio de datos (EDA) de +600k canciones de Spotify. El objetivo fue identificar patrones y tendencias en características de las canciones, como duración, popularidad, entre otros parámetros, con la finalidad de entender la evolución de la música en la plataforma a lo largo del tiempo.
+            Los datos se presentan mediante Power BI. 
+          </p>
+        </div>
+      
+        <div class="spotifypowerbi-wrapper">
+          <img src="imagenes/SpotifyDashBoard.png" alt="Ejemplo de Dashboard" class="dashboard-img">
+        </div>    
+        
+        <div class="carousel-controls">
+          <a href="https://app.powerbi.com/links/cOPE_YsrxF?ctid=a37c2367-cf18-441f-93e5-85d7db0d493d&pbi_source=linkShare" target="_blank" class="control-btn link-btn">Ver en PowerBI</a>
+          <a href="https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-600k-tracks" target="_blank" class="control-btn link-btn">Ver Base de Datos</a>
+        </div>
+        
+      </section>
+
+      <section class="hero-stochastic fade-element">
+        <div class="text-col">
+          <h1><span class="highlight-text-hola-spotify">Análisis de Datos.</span></h1>
+          <p>
+            <strong>¿Te gustaría descubrir cómo los datos pueden contar historias?</strong>
+            He trabajado en limpieza y exploración de grandes volúmenes de datos  y en construcción de modelos predictivos; 
+            ayudo a transformar datos crudos en información valiosa para la toma de decisiones.
+          </p>
+          <a href="https://drive.google.com/drive/folders/1EfJ8SeYsITLYCS-1pqWetkHuRIJG_Bmj?usp=share_link" class="cta-link-spotify">Explora mi portafolio completo ›</a>
+        </div>
+        <div class="metrics-col">
+         <div class="metric">
+            <p class="label">+500K</p>
+            <h2>Datos procesados</h2>
+            <p class="desc">en diferentes proyectos</p>
+          </div>
+          <div class="metric">
+            <p class="label">HASTA</p>
+            <h2>95% de precisión</h2>
+            <p class="desc">en modelos predictivos basados en Machine Learning</p>
+          </div>
+        </div>
+      </section>
+      
+
+    
+      <!-- ============================== Métodos numéricos ==============================-->
+
+      
+      <div class="parent">
+        <div class="div1MN">    
+          <iframe src="paginas_secundarias/lorenz_darkthemehol-6.html" width="100%" height="100%" loading="lazy"></iframe>
+        </div>
+
+        <div class="div2">
+          <h2>Métodos numéricos</h2>
+          <div class="tags">
+            <span class="tag">Ecuaciones Diferenciales</span>
+            <span class="tag">Regresiones</span>
+            <span class="tag">Optimización</span>
+            <span class="tag">Interpolación</span>
+          </div>
+          <p>
+            La implementación de métodos numéricos me ha permitido <strong> resolver problemas matemáticos complejos </strong>mediante algoritmos y aproximaciones computacionales. Cuando me enfrento a problemas cuya complejidad hace inviable la obtención de resultados analíticos exactos, utilizo estas herramientas para obtener soluciones dentro de un margen de error aceptable.
+          </p>
+        </div>
+
+        <div class="div3">
+          <h4>Impacto laboral</h4>
+          <hr>
+          <p>
+            Desarrollé un modelo numérico para optimizar el rendimiento térmico en un intercambiador de calor en una planta industrial, resolviendo ecuaciones diferenciales parciales que describen la distribución de temperatura en tiempo real. Utilicé métodos de diferencias finitas (FDM) para simular diferentes configuraciones del sistema, lo que permitió identificar las zonas de mayor pérdida energética y optimizar los parámetros operativos. La solución resultante contribuyó a un<strong> aumento del 14.8% en la eficiencia energética</strong>, reduciendo costos operativos y mejorando la sostenibilidad del sistema.
+          </p>
+        </div>
+
+        <div class="div4">
+          <h4>Herramientas Técnicas Utilizadas</h4>
+          <hr>
+          <ul>
+            <li><strong>Método de Elementos Finitos:</strong> Resolución de ecuaciones diferenciales parciales (EDP) para modelar procesos complejos.</li>
+            <li><strong>Método de Diferencias Finitas:</strong> Implementación de técnicas numéricas para discretizar el dominio espacial y temporal.</li>
+            <li><strong>Simulación Transitoria:</strong> Modelado de sistemas bajo condiciones de operación variable, aplicando métodos numéricos avanzados para simular el comportamiento de sistemas a largo del tiempo.</li>
+            <li><strong>Optimización Numérica:</strong> Técnicas de optimización aplicadas para ajustar parámetros y mejorar la eficiencia de procesos.</li>
+          </ul>
+        </div>  
+      </div>
+
+      <section id="BS">
+        <div class="video-container fade-element">
+          <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+          <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+          </script>
+          
+          <h1 class="math-equation">
+            \[
+            \dfrac{\partial V}{\partial T} + \dfrac{1}{2} \sigma^2 S^2 \dfrac{\partial^2 V}{\partial S^2} + rS \dfrac{\partial V}{\partial S} - rV = 0
+            \]
+          </h1>
+        </div>
+      </section>
+      
+      
+      <section class="apple-carousel-section">
+        <div class="hero">
+          <h1><span class="highlight-text-hola-bs">Modelo Black-Scholes</span></h1>
+          <p>
+            La ecuación de Black-Scholes es un modelo matemático utilizado para calcular el valor teórico de opciones financieras. Este proyecto implementa un modelo numérico para valorar opciones financieras de Apple utilizando diferencias finitas explícitas sobre la ecuación de Black-Scholes. Se comparan los resultados con la solución analítica, demostrando la convergencia del método y su estabilidad bajo ciertas condiciones.
+          </p>
+        </div>
+
+        <div class="carousel-viewport" id="iframe-carousel">
+          <div class="carousel-track" id="iframe-track">
+            <iframe src="paginas_secundarias/opcion_black_scholes_dark-4.html" title="Opción Black-Scholes"></iframe>
+            <iframe src="paginas_secundarias/greeks_black_scholes_dark-4.html" title="Griegas Black-Scholes"></iframe>
+          </div>
+        </div>
+        
+        <div class="carousel-controls">
+          <a href="#" class="control-btn link-btn active" onclick="goToIframeSlide(0, this)">Black-Scholes</a>
+          <a href="#" class="control-btn link-btn" onclick="goToIframeSlide(1, this)">Griegas</a>
+          <a href="https://colab.research.google.com/drive/1zuWspyVQSlLe7BZAAwdzHJNB9-UPwfKK?usp=sharing" target="_blank" class="control-btn link-btn">Código</a>
+          <a href="pfd/bs.pdf" target="_blank" class="control-btn link-btn">Reporte Técnico</a>
+        </div>
+        
+        
+        
+      </section>
+  
+      <section class="hero-stochastic fade-element">
+        <div class="text-col">
+          <h1><span class="highlight-text-hola-bs">Métodos numéricos.</span></h1>
+          <p>
+           Los métodos numéricos nos permiten resolver problemas de una alta complejidad matemática utilizando aproximaciones numéricas. 
+           He trabajando en diversos proyectos de ésta índole, <strong>¡Conoce más sobre mi trabajo!</strong> en el área. 
+          </p>
+          <a href="https://drive.google.com/drive/folders/1Qozus8VviTvKf0isr07Wln2mRZOIIJ39?usp=share_link" class="cta-link-bs">Explora mis proyectos relevantes ›</a>
+        </div>
+        <div class="metrics-col">
+         <div class="metric">
+            <p class="label">Hasta</p>
+            <h2>99% de precisión</h2>
+            <p class="desc">en predicciones estocásticas</p>
+          </div>
+          <div class="metric">
+            <p class="label">+300</p>
+            <h2>Horas de análisis</h2>
+            <p class="desc">para estimar riesgo con intervalos de confianza</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section" id="Contacto">
+        <div class="contact-section2" id="contact">
+          <div class="contact-container">
+            <h2 class="contact-title">Contáctame</h2>
+            <p class="contact-subtitle">¿Tienes una idea, proyecto o quieres decirme algo?</p>
+      
+            <form class="contact-form" action="https://formspree.io/f/mrbqzajg" method="POST">
+              <input type="text" name="name" placeholder="Tu nombre" required />
+              <input type="email" name="email" placeholder="Tu correo electrónico" required />
+              <textarea name="message" placeholder="Tu mensaje" required></textarea>
+              <button type="submit">Enviar mensaje</button>
+            </form>
+      
+            <div class="contact-footer">
+              <p>O escríbeme directamente a <a href="mailto:emipachecuan@gmail.com">emipachecuan@gmail.com</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      
+      
+  
+
+      <!-- Footer -->
+      <footer class="footer">
+        <a href="https://github.com/p4ch30" class="link footer__link">
+          Página desarrollada por José Emilio Pacheco Cuan 
+        </a>
+      </footer>
+
+      <!-- Scroll to top -->
+      <div class="scroll-container">
+        <div class="scroll-top">
+          <a aria-label="Scroll up" href="#top">
+            <i aria-hidden="true" class="fas fa-arrow-up"></i>
+          </a>
+        </div>
+      </div>
+
+      <script src="./scriptprofesional.js"></script>
+    </main>
+  </body>
+</html>
